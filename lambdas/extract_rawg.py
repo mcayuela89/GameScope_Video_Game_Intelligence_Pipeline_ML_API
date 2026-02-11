@@ -7,10 +7,7 @@ from datetime import datetime, timedelta
 import time
 
 s3 = boto3.client("s3")
-
-# ===============================
 # CONFIG (ajustado a 15 min)
-# ===============================
 PAGE_SIZE = 40
 PAGES_MAX = 70
 SLEEP_BETWEEN_CALLS = 0.1
@@ -19,10 +16,7 @@ STOP_WHEN_REMAINING_MS = 60_000  # corta si quedan <60s
 DAILY_STATE_KEY = "state/rawg_daily_last_date.txt"
 OUTPUT_PREFIX = "rawg/daily/"
 
-
-# ===============================
 # HELPERS
-# ===============================
 def safe_json(value):
     return json.dumps(value, ensure_ascii=False) if value is not None else None
 
@@ -77,10 +71,7 @@ def write_s3_text(bucket: str, key: str, text: str):
         ContentType="text/plain",
     )
 
-
-# ===============================
 # LAMBDA (DAILY)
-# ===============================
 def lambda_handler(event, context):
     bucket_name = os.environ.get("BUCKET_NAME")
     if not bucket_name:
@@ -88,9 +79,7 @@ def lambda_handler(event, context):
 
     games_url = build_games_url(os.environ.get("API_URL"))
 
-    # -------------------------------
     # API KEYS (strip + SOLO 1 para depurar)
-    # -------------------------------
     api_keys = [
         os.environ.get("API_KEY_1", ""),
         os.environ.get("API_KEY_2", ""),
@@ -104,9 +93,7 @@ def lambda_handler(event, context):
 
     api_key = api_keys[0]  # para depurar (luego puedes volver a rotación)
 
-    # -------------------------------
-    # TEST rápido (valida endpoint + key)
-    # -------------------------------
+    # TEST rápido (valida endpoint + key)-
     test_url = f"{games_url}?key={api_key}&page_size=1"
     print("API_URL env:", os.environ.get("API_URL"))
     print("games_url:", games_url)
@@ -114,9 +101,8 @@ def lambda_handler(event, context):
     _ = open_json(test_url)
     print("✅ RAWG key + endpoint OK")
 
-    # -------------------------------
     # RANGO UPDATED (desde última ejecución)
-    # -------------------------------
+
     today = datetime.utcnow().date()
     today_str = today.strftime("%Y-%m-%d")
 
@@ -134,9 +120,8 @@ def lambda_handler(event, context):
     all_rows = []
     pages_processed = 0
 
-    # -------------------------------
+
     # EXTRACCIÓN (solo updated)
-    # -------------------------------
     for page in range(1, PAGES_MAX + 1):
         if context and context.get_remaining_time_in_millis() < STOP_WHEN_REMAINING_MS:
             print("⏳ Cortando por tiempo restante")
@@ -152,7 +137,7 @@ def lambda_handler(event, context):
 
         print("LIST URL:", url.replace(api_key, "KEY_HIDDEN"))
 
-        # ✅ CAMBIO CLAVE: si RAWG devuelve 404 al pasar de la última página,
+        #  CAMBIO CLAVE: si RAWG devuelve 404 al pasar de la última página,
         # lo tratamos como "no hay más resultados" y cortamos el bucle.
         try:
             data = open_json(url)
@@ -160,7 +145,7 @@ def lambda_handler(event, context):
             if e.code == 404:
                 print("ℹ️ 404 en paginación: no hay más páginas para este updated_range. Fin.")
                 break
-            raise  # otros errores sí deben fallar
+            raise  # otros errores por si fallan
 
         games = data.get("results", [])
         if not games:
@@ -175,7 +160,7 @@ def lambda_handler(event, context):
 
             detail = get_game_detail(games_url, api_key, game["id"])
 
-            # MISMA ESTRUCTURA QUE TU MASIVA
+            # Misma estructura que la lambda masiva
             row = {
                 "id": detail.get("id"),
                 "slug": detail.get("slug"),
@@ -223,10 +208,7 @@ def lambda_handler(event, context):
 
             all_rows.append(row)
             time.sleep(SLEEP_BETWEEN_CALLS)
-
-    # -------------------------------
     # ACTUALIZAR ESTADO (siempre)
-    # -------------------------------
     write_s3_text(bucket_name, DAILY_STATE_KEY, today_str)
 
     if not all_rows:
@@ -239,10 +221,7 @@ def lambda_handler(event, context):
                 "rows_written": 0
             })
         }
-
-    # -------------------------------
     # GUARDAR EN S3
-    # -------------------------------
     timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
     object_key = f"{OUTPUT_PREFIX}rawg_daily_updated_{today_str}_{timestamp}.json"
 
