@@ -5,29 +5,29 @@ import pg8000.native
 from urllib.parse import unquote_plus
 import logging
 
-# ===============================
+
 # LOGGING
-# ===============================
+
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-# ===============================
+
 # AWS CLIENT
-# ===============================
+
 s3 = boto3.client("s3")
 
-# ===============================
+
 # DB CONFIG (ENV VARS)
-# ===============================
+
 DB_HOST = os.environ["DB_HOST"]
 DB_PORT = int(os.environ.get("DB_PORT", "5432"))
 DB_NAME = os.environ["DB_NAME"]
 DB_USER = os.environ["DB_USER"]
 DB_PASSWORD = os.environ["DB_PASSWORD"]
 
-# ===============================
+
 # SQL: CREATE TABLE
-# ===============================
+
 CREATE_TABLE_SQL = """
 CREATE TABLE IF NOT EXISTS public.rawg_games (
     id BIGINT PRIMARY KEY,
@@ -63,9 +63,9 @@ CREATE TABLE IF NOT EXISTS public.rawg_games (
 );
 """
 
-# ===============================
+
 # SQL UPSERT
-# ===============================
+
 UPSERT_SQL = """
 INSERT INTO public.rawg_games (
     id, slug, name, released, updated,
@@ -111,9 +111,9 @@ ON CONFLICT (id) DO UPDATE SET
     updated_at = now();
 """
 
-# ===============================
+
 # HELPERS
-# ===============================
+
 def to_jsonb(v):
     if v is None:
         return None
@@ -188,9 +188,9 @@ def clean_game(g):
         "background_image_additional": g.get("background_image_additional"),
     }
 
-# ===============================
+
 # LAMBDA HANDLER
-# ===============================
+
 def lambda_handler(event, context):
 
     records = event.get("Records", [])
