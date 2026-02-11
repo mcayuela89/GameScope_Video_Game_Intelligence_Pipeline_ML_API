@@ -1,4 +1,5 @@
-# 🎮 RAWG ML Platform
+# 🎮 GameScope_Video_Intelligence_Pipeline_ML_API #
+
 **Plataforma End-to-End de Datos y Machine Learning para Videojuegos**
 
 ## 📌 Visión General
