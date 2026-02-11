@@ -171,7 +171,7 @@ AWS (Lambda, S3, RDS, EC2, EventBridge)
 
 PostgreSQL
 
-XGBoost / LightGBM
+LightGBM
 
 Hugging Face
 
