@@ -3,7 +3,7 @@
 **Plataforma End-to-End de Datos y Machine Learning para Videojuegos**
 
 ## 📌 Visión General
-RAWG ML Platform es un proyecto **end-to-end** que simula un entorno real de producción en la nube para la **ingesta, procesamiento, análisis y exposición de datos de videojuegos** obtenidos desde la API de RAWG.
+GameScope Video Intelligence Pipeline ML API es un proyecto que simula un entorno real de producción en la nube para la ingesta, procesamiento, análisis y exposición de datos de videojuegos obtenidos desde la API de RAWG.
 
 Integra **Data Engineering**, **Machine Learning** y **APIs modernas**, aplicando buenas prácticas de arquitectura, automatización y despliegue.
 
@@ -106,7 +106,7 @@ Predice la probabilidad de éxito de un videojuego.
 
 ---
 
-/ask-text
+/Ask-text
 
 Consultas analíticas en lenguaje natural (Text-to-SQL).
 Ejemplo:
@@ -115,7 +115,7 @@ Ejemplo:
 
 ---
 
-/ask-visual
+/Ask-visual
 
 Generación dinámica de visualizaciones.
 Ejemplo:
@@ -133,7 +133,8 @@ OpenAPI: /openapi.json
 ---
 
 🚢 Despliegue
-uvicorn api.app:app --reload
+
+- uvicorn api.app:app --reload -
 
 ---
 
@@ -160,7 +161,7 @@ HF_TOKEN=your_huggingface_token
 
 ---
 
-🧩 Tecnologías Utilizadas
+🧩 Tecnologías Utilizadas :
 
 Python
 
@@ -180,7 +181,7 @@ Matplotlib / Seaborn
 
 ---
 
-👤 Autores
+👤 Autores :
 
 Doru · Miguel · Daniel · Christian
 
