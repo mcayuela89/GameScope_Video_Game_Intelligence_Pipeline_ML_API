@@ -30,7 +30,9 @@ Integra **Data Engineering**, **Machine Learning** y **APIs modernas**, aplicand
 ---
 
 ## 🏗️ Arquitectura del Sistema
+
 RAWG API  
+
 → AWS Lambda (Extracción)  
 → Amazon S3 (Datos en bruto)  
 → AWS Lambda (Procesamiento)  
@@ -42,26 +44,42 @@ RAWG API
 
 ## 📂 Estructura del Proyecto
 
-rawg-ml-platform/
+GameScope_Video_Intelligence_Pipeline_ML_API/
+
 ├── api/ # Aplicación FastAPI
+
 │ └── app.py
+
 ├── lambdas/ # Funciones AWS Lambda
+
 │ ├── extract_rawg.py
+
 │ └── process_rawg.py
+
 ├── model/ # Entrenamiento y artefactos ML
+
 │ ├── train.py
+
 │ └── artifacts/
-├── data/ # Datos (excluidos de Git)
+
+├── data/ 
+
 │ ├── raw/
+
 │ └── processed/
-├── scripts/ # Scripts SQL y utilidades
+
+├── scripts/ 
+
 │ ├── create_tables.sql
+
 │ └── views.sql
-├── notebooks/ # Análisis exploratorio
-├── tests/ # Tests
+
+├── notebooks/ 
+
 ├── requirements.txt
-├── .env.example
+
 ├── .gitignore
+
 └── README.md
 
 ---
@@ -123,14 +141,22 @@ uvicorn api.app:app --reload
 
 Archivo .env.example:
 
-RAWG_API_KEY=your_rawg_key
-DB_HOST=localhost
-DB_NAME=rawg
-DB_USER=user
-DB_PASSWORD=password
-DB_PORT=5432
-MODEL_PATH=model/artifacts/model.joblib
-HF_TOKEN=your_huggingface_token
+RAWG_API_KEY=your_rawg_key 
+
+DB_HOST=localhost 
+
+DB_NAME=rawg 
+
+DB_USER=user 
+
+DB_PASSWORD=password 
+
+DB_PORT=5432 
+
+MODEL_PATH=model/artifacts/model.joblib 
+
+HF_TOKEN=your_huggingface_token 
+
 
 ---
 
