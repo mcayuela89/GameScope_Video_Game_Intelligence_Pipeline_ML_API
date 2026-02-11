@@ -80,7 +80,7 @@ Predice la probabilidad de éxito de un videojuego.
   "ratings_count": 1200
 }
 
-**Sakida**
+**Salida**
 {
   "success_probability": 0.87,
   "prediction": "success"
