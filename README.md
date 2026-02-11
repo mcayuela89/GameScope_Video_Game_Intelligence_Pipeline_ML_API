@@ -182,5 +182,5 @@ Matplotlib / Seaborn
 
 👤 Autores
 
-Doru · Miguel · Daniel · Cristian
+Doru · Miguel · Daniel · Christian
 
