@@ -183,8 +183,8 @@ Matplotlib / Seaborn
 
 👤 Autores :
 
-- Daniel Cosmin Nedelcu
-- Doru Catalin Cristian
-- Miguel Ángel Cayuela Sanjuan
-- Christian Monzon Iribarren 
+- Cayuela Sanjuan, Miguel Ángel 
+- Cosmin Nedelcu, Daniel 
+- Cristian, Doru Catalin 
+- Monzon Iribarren, Christian
 
